@@ -1,4 +1,3 @@
-
 # RepoFetch - AI Projects Repository Fetcher
 
 A focused Node.js application for fetching and displaying AI-related GitHub repositories using GitHub Apps with JSON output capabilities.
@@ -120,7 +119,6 @@ node repos_to_json.js both
 
 ## Configuration
 
-
 ### GitHub App Setup
 1. Create a GitHub App in your GitHub account
 2. Generate a private key file
@@ -138,7 +136,6 @@ Install dependencies:
 ```bash
 npm install
 ```
-
 
 ## Project Structure
 
@@ -182,18 +179,28 @@ Each repository object in JSON output includes:
 - Check that the repositories are accessible to your GitHub App
 - Consider case sensitivity in filtering
 
+### JSON Output Issues
+- Ensure you have write permissions in the current directory
+- Check that the `--json` or `-j` flag is properly formatted
+- Verify that the output format parameter for repos_to_json.js is valid
+
 ### API Rate Limits
 - GitHub API has rate limits for requests
 - Authentication increases rate limits
 - Consider implementing request throttling if needed
 
-## Restoring Original Functionality
+## Migration from Original
 
-If you want to restore the original comprehensive version:
+The enhanced scripts maintain backward compatibility:
+- All original functionality still works without changes
+- JSON features are opt-in via command-line flags
+- Existing usage patterns remain unchanged
 
+### Adding JSON to Existing Workflows
+Simply add `--json` or `-j` to any existing command:
 ```bash
-# Replace current script with backup
-mv fetchRepos_backup.js fetchRepos.js
-
-# Run the original script
+# Old way
 node fetchRepos.js
+
+# New way with JSON
+node fetchRepos.js --json
