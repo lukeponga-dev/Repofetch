@@ -4,7 +4,7 @@ const fs = require("fs");
 // Configuration
 const APP_ID = 2501453;
 const INSTALLATION_ID = 100314666;
-const PRIVATE_KEY_PATH = "/workspaces/Repofetch/fetchreposapp.2025-12-19.private-key.pem";
+const PRIVATE_KEY_PATH = "/workspaces/Repofetch/fetchreposapp.2025-12-23.private-key.pem";
 
 // Output formats
 const OUTPUT_FORMATS = {

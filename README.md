@@ -10,10 +10,10 @@ A powerful Node.js application for fetching and managing GitHub repositories wit
 
 - **🔐 GitHub App Integration**: Secure authentication using GitHub Apps with private key
 - **🤖 AI Project Filtering**: Smart filtering for repositories containing 'ai' in the name
-- **📊 Multiple Output Formats**: Console display, emoji-coded lists, or structured JSON
+- **📊 Repository Analytics**: Comprehensive insights on languages, popularity, age, and activity
+- **📈 Rich Metadata**: Complete repository information (stars, forks, language, timestamps)
 - **💾 JSON Export**: Auto-save repository data to timestamped JSON files
 - **🎯 Flexible Queries**: Fetch all repositories or filter for AI-only projects
-- **📈 Rich Metadata**: Complete repository information (stars, forks, language, timestamps)
 - **⚡ High Performance**: Optimized with GitHub Apps for higher API rate limits
 - **🛠️ CLI Ready**: Perfect for automation, scripts, and CI/CD pipelines
 
@@ -21,73 +21,113 @@ A powerful Node.js application for fetching and managing GitHub repositories wit
 
 New to RepoFetch? Get started in under 5 minutes!
 
-👉 **[Start with QUICKSTART.md](QUICKSTART.md)** - For immediate setup and basic usage
+👉 **[Start with docs/QUICKSTART.md](docs/QUICKSTART.md)** - For immediate setup and basic usage
 
 Looking for detailed information? Check out these guides:
 
-- 📖 **[SETUP.md](SETUP.md)** - Comprehensive setup and configuration guide
-- 📖 **[USAGE.md](USAGE.md)** - Complete usage reference with examples
+- 📖 **[docs/SETUP.md](docs/SETUP.md)** - Comprehensive setup and configuration guide
+- 📖 **[docs/USAGE.md](docs/USAGE.md)** - Complete usage reference with examples
 - 🛠️ **[This README](#)** - Project overview and quick reference
 
 ## 📁 Project Structure
 
 ```
 /workspaces/Repofetch/
-├── 📜 QUICKSTART.md              # 5-minute setup guide
-├── 📜 SETUP.md                   # Detailed setup instructions
-├── 📜 USAGE.md                   # Complete usage reference
-├── 📜 README.md                  # This file (project overview)
-├── 📄 fetchRepos.js              # AI-focused repository fetcher
-├── 📄 get_all_repos.js           # Complete repository inventory
-├── 📄 repos_to_json.js           # Advanced JSON export tool
-├── 📄 package.json               # Project dependencies
-└── 🔑 fetchreposapp.2025-12-19.private-key.pem  # GitHub App private key
+├── config/                          # Configuration files
+│   └── fetchreposapp.2025-12-23.private-key.pem
+├── docs/                            # Documentation
+│   ├── QUICKSTART.md               # 5-minute setup guide
+│   ├── SETUP.md                    # Detailed setup instructions
+│   ├── USAGE.md                    # Complete usage reference
+│   ├── PROJECT_ONBOARDING.md       # New contributor guide
+│   ├── CONTRIBUTING.md             # Contribution guidelines
+│   └── TODO.md                     # Development roadmap
+├── scripts/                         # Main application scripts
+│   ├── fetchRepos.js              # AI-focused repository fetcher
+│   ├── get_all_repos.js           # Complete repository inventory
+│   ├── repos_to_json.js           # Advanced JSON export tool
+│   └── repository_analytics.js    # Comprehensive analytics engine
+├── output/                          # Generated JSON data
+│   ├── ai_repositories_*.json
+│   └── all_repositories_*.json
+├── node_modules/                    # Dependencies
+├── package.json                     # Project configuration
+└── README.md                        # This file (project overview)
 ```
 
 ## 🛠️ Available Scripts
 
-### 1. AI Projects Fetcher (`fetchRepos.js`)
-Fetches repositories containing 'ai' in the name with optional JSON export.
+### 1. AI Projects Fetcher (`scripts/fetchRepos.js`)
+Fetches repositories containing 'ai' in the name with optional JSON export and analytics.
 
 ```bash
 # Standard output
-node fetchRepos.js
+node scripts/fetchRepos.js
 # Output: 🤖 ai-chatbot
 #         🤖 machine-learning-tools
 
 # JSON output
-node fetchRepos.js --json
+node scripts/fetchRepos.js --json
 # or
-node fetchRepos.js -j
+node scripts/fetchRepos.js -j
+
+# AI Repository Analytics
+node scripts/fetchRepos.js --analytics
+# or
+node scripts/fetchRepos.js -a
+
+# Analytics with JSON export
+node scripts/fetchRepos.js --analytics --json
 ```
 
-### 2. All Repositories Fetcher (`get_all_repos.js`)
-Fetches all accessible repositories with privacy indicators.
+### 2. All Repositories Fetcher (`scripts/get_all_repos.js`)
+Fetches all accessible repositories with privacy indicators and optional analytics.
 
 ```bash
 # Standard output
-node get_all_repos.js
+node scripts/get_all_repos.js
 # Output: 🌍 username/repo1
 #         🔒 username/private-repo
 
 # JSON output
-node get_all_repos.js --json
+node scripts/get_all_repos.js --json
 # or
-node get_all_repos.js -j
+node scripts/get_all_repos.js -j
+
+# Quick Analytics Report
+node scripts/get_all_repos.js --analytics
+# or
+node scripts/get_all_repos.js -a
+
+# Analytics with JSON export
+node scripts/get_all_repos.js --analytics --json
 ```
 
-### 3. Advanced JSON Export (`repos_to_json.js`)
+### 3. Advanced JSON Export (`scripts/repos_to_json.js`)
 Advanced export with multiple format options.
 
 ```bash
 # Export all repositories
-node repos_to_json.js all
+node scripts/repos_to_json.js all
 
 # Export only AI repositories
-node repos_to_json.js ai-only
+node scripts/repos_to_json.js ai-only
 
 # Export summary + detailed data
-node repos_to_json.js both
+node scripts/repos_to_json.js both
+```
+
+### 4. Repository Analytics (`scripts/repository_analytics.js`)
+Comprehensive analytics and insights about your repositories.
+
+```bash
+# Display formatted analytics report
+node scripts/repository_analytics.js
+
+# Export analytics as JSON
+node scripts/repository_analytics.js --json
+# or
+node scripts/repository_analytics.js -j
 ```
 
 ## 📊 Example Output
@@ -129,11 +169,86 @@ node repos_to_json.js both
 }
 ```
 
+## 📊 Repository Analytics Features
+
+The analytics engine provides comprehensive insights across multiple dimensions:
+
+### Summary Statistics
+- Total repositories, AI projects, and regular projects
+- Aggregate stars, forks, and open issues
+- Average metrics per repository
+- Top repositories by popularity metrics
+
+### Language Analysis
+- Repository count by programming language
+- Total and average stars per language
+- Size distribution across languages
+- Most popular and most starred languages
+
+### Popularity Metrics
+- Top 10 repositories by stars and forks
+- Popularity distribution buckets (0, 1-10, 11-50, 51-100, 101-500, 500+ stars)
+- Comparative analysis across all repositories
+
+### Age & Activity Analysis
+- Repository age distribution
+- Recent activity tracking (updates within 30 days, pushes within 7 days)
+- Activity percentage and inactive repository identification
+- Timeline-based insights
+
+### Size & Privacy Analysis
+- Storage size analysis and distribution
+- Public vs private repository breakdown
+- Largest repositories by size
+- Privacy distribution statistics
+
+### Example Analytics Output
+```bash
+node scripts/repository_analytics.js
+```
+
+```
+================================================================================
+🚀 REPOSITORY ANALYTICS REPORT
+================================================================================
+
+📊 SUMMARY
+Total Repositories: 171
+AI Projects: 12
+Regular Projects: 159
+Total Stars: 1,247
+Total Forks: 89
+Average Stars per Repo: 7
+
+💻 TOP LANGUAGES
+JavaScript: 45 repos (26%) - 567 ⭐
+Python: 23 repos (13%) - 234 ⭐
+TypeScript: 18 repos (11%) - 123 ⭐
+HTML: 15 repos (9%) - 89 ⭐
+CSS: 12 repos (7%) - 67 ⭐
+
+⭐ TOP STARRED REPOSITORIES
+portfolio: 156 ⭐ (JavaScript)
+ai-chatbot: 89 ⭐ (Python)
+machine-learning: 67 ⭐ (Python)
+
+📅 AGE ANALYSIS
+Average Age: 18 months
+Recently Updated (30 days): 45
+Recently Active (7 days): 23
+
+🔐 PRIVACY DISTRIBUTION
+Public: 91 (53%)
+Private: 80 (47%)
+
+================================================================================
+```
+
 ## 🔧 Requirements
 
 - **Node.js** (version 14 or higher)
 - **GitHub App** with repository access permissions
-- **Private key file** for GitHub App authentication
+- **Private key file** for GitHub App authentication (located in `config/`)
 - **npm** (usually comes with Node.js)
 
 ## 📦 Dependencies
@@ -150,57 +265,72 @@ npm install
 The project comes pre-configured with sample GitHub App credentials:
 - **App ID**: `2501453`
 - **Installation ID**: `100314666`
-- **Private Key**: `fetchreposapp.2025-12-19.private-key.pem`
+- **Private Key**: `config/fetchreposapp.2025-12-23.private-key.pem`
 
-For setting up your own GitHub App, see the detailed guide in **[SETUP.md](SETUP.md)**.
+For setting up your own GitHub App, see the detailed guide in **[docs/SETUP.md](docs/SETUP.md)**.
 
 ## 💡 Common Use Cases
 
 ### Project Portfolio Management
 ```bash
 # Generate portfolio overview
-node repos_to_json.js both > portfolio-report.json
+node scripts/repos_to_json.js both > portfolio-report.json
 ```
 
 ### AI Project Discovery
 ```bash
 # Find all AI projects
-node fetchRepos.js
+node scripts/fetchRepos.js
 
 # Export detailed AI project data
-node repos_to_json.js ai-only > ai-projects.json
+node scripts/repos_to_json.js ai-only > ai-projects.json
 ```
 
 ### Repository Audit
 ```bash
 # Comprehensive repository audit
-node get_all_repos.js --json > full-inventory.json
+node scripts/get_all_repos.js --json > full-inventory.json
+```
+
+### Repository Analytics & Insights
+```bash
+# Generate comprehensive analytics report
+node scripts/repository_analytics.js
+
+# Export analytics data for further analysis
+node scripts/repository_analytics.js --json > analytics-report.json
+
+# Analyze specific metrics
+node scripts/repository_analytics.js --json | jq '.summary.total_stars'
 ```
 
 ### CI/CD Integration
 ```bash
 # Check repository status in build scripts
-if node fetchRepos.js --json | jq -e '.repositories[] | select(.open_issues_count > 50)' > /dev/null; then
+if node scripts/fetchRepos.js --json | jq -e '.repositories[] | select(.open_issues_count > 50)' > /dev/null; then
     echo "Warning: Some AI projects have >50 open issues"
 fi
 ```
 
 ## 🔄 Auto-saved Files
 
-All JSON outputs are automatically saved to timestamped files:
-- `ai_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from fetchRepos.js)
-- `all_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from get_all_repos.js)
-- `repositories_{format}_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from repos_to_json.js)
+All JSON outputs are automatically saved to timestamped files in the `output/` directory:
+- `ai_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/fetchRepos.js)
+- `all_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/get_all_repos.js)
+- `repositories_{format}_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/repos_to_json.js)
+- `ai_repositories_analytics_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/fetchRepos.js --analytics)
+- `all_repositories_quick_analytics_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/get_all_repos.js --analytics)
+- `repository_analytics_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/repository_analytics.js)
 
 ## 🛠️ Advanced Usage
 
 ### Pipeline Integration
 ```bash
 # Fetch and process AI repositories
-node fetchRepos.js --json | jq '.repositories[] | select(.stargazers_count > 10) | .name'
+node scripts/fetchRepos.js --json | jq '.repositories[] | select(.stargazers_count > 10) | .name'
 
 # Count repositories by language
-node repos_to_json.js all | jq '.repositories | group_by(.language) | map({language: .[0].language, count: length})'
+node scripts/repos_to_json.js all | jq '.repositories | group_by(.language) | map({language: .[0].language, count: length})'
 ```
 
 ### Automated Reporting
@@ -211,11 +341,11 @@ echo "Date: $(date)"
 echo
 
 echo "AI Projects:"
-node fetchRepos.js
+node scripts/fetchRepos.js
 echo
 
 echo "Repository Statistics:"
-node repos_to_json.js both | jq '.summary'
+node scripts/repos_to_json.js both | jq '.summary'
 ```
 
 For more advanced examples and integrations, see **[USAGE.md](USAGE.md)**.
@@ -223,7 +353,7 @@ For more advanced examples and integrations, see **[USAGE.md](USAGE.md)**.
 ## 🐛 Troubleshooting
 
 ### Authentication Issues
-- Check that your private key file exists and is readable
+- Check that your private key file exists in the `config/` directory and is readable
 - Verify your GitHub App ID and installation ID
 - Ensure your GitHub App has repository access permissions
 
@@ -264,7 +394,7 @@ This project is licensed under the MIT License - see the project files for detai
 
 Need help? Here's where to find assistance:
 
-1. **📖 Documentation**: Check [SETUP.md](SETUP.md) and [USAGE.md](USAGE.md)
+1. **📖 Documentation**: Check [docs/SETUP.md](docs/SETUP.md) and [docs/USAGE.md](docs/USAGE.md)
 2. **🐛 Issues**: Report bugs or request features in the project repository
 3. **💬 Community**: Join discussions in the project issues
 4. **📧 Contact**: Reach out through the project's contact information
@@ -273,4 +403,4 @@ Need help? Here's where to find assistance:
 
 **Made with ❤️ for developers who love AI projects and efficient tooling.**
 
-Ready to get started? Jump to **[QUICKSTART.md](QUICKSTART.md)** for the fastest path to productivity!
+Ready to get started? Jump to **[docs/QUICKSTART.md](docs/QUICKSTART.md)** for the fastest path to productivity!
