@@ -32,7 +32,7 @@ Looking for detailed information? Check out these guides:
 ## 📁 Project Structure
 
 ```
-/workspaces/Repofetch/
+Repofetch/
 ├── config/                          # Configuration files
 │   └── fetchreposapp.2025-12-23.private-key.pem
 ├── docs/                            # Documentation
@@ -48,9 +48,12 @@ Looking for detailed information? Check out these guides:
 │   ├── repos_to_json.js           # Advanced JSON export tool
 │   └── repository_analytics.js    # Comprehensive analytics engine
 ├── output/                          # Generated JSON data
-│   ├── ai_repositories_*.json
-│   └── all_repositories_*.json
-├── node_modules/                    # Dependencies
+│   ├── all_repositories_*.json
+│   ├── all_repositories_quick_analytics_*.json
+│   ├── repositories_all_*.json
+│   ├── repositories_ai-only_*.json
+│   ├── repositories_both_*.json
+│   └── repository_analytics_*.json
 ├── package.json                     # Project configuration
 └── README.md                        # This file (project overview)
 ```
@@ -163,7 +166,8 @@ node scripts/repository_analytics.js -j
       "created_at": "2024-01-15T10:30:00Z",
       "updated_at": "2024-12-10T14:22:33Z",
       "pushed_at": "2024-12-09T16:45:12Z",
-      "default_branch": "main"
+      "default_branch": "main",
+      "is_ai_project": true
     }
   ]
 }
@@ -315,11 +319,13 @@ fi
 ## 🔄 Auto-saved Files
 
 All JSON outputs are automatically saved to timestamped files in the `output/` directory:
-- `ai_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/fetchRepos.js)
-- `all_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/get_all_repos.js)
-- `repositories_{format}_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/repos_to_json.js)
+- `ai_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/fetchRepos.js --json)
 - `ai_repositories_analytics_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/fetchRepos.js --analytics)
+- `all_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/get_all_repos.js --json)
 - `all_repositories_quick_analytics_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/get_all_repos.js --analytics)
+- `repositories_all_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/repos_to_json.js all)
+- `repositories_ai-only_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/repos_to_json.js ai-only)
+- `repositories_both_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/repos_to_json.js both)
 - `repository_analytics_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/repository_analytics.js)
 
 ## 🛠️ Advanced Usage

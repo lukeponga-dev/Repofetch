@@ -4,7 +4,7 @@ const fs = require("fs");
 // Configuration
 const APP_ID = 2501453;
 const INSTALLATION_ID = 100314666;
-const PRIVATE_KEY_PATH = "/workspaces/Repofetch/fetchreposapp.2025-12-23.private-key.pem";
+const PRIVATE_KEY_PATH = "C:\\Users\\lukeg\\repos\\Repofetch\\config\\fetchreposapp.2025-12-23.private-key.pem";
 
 // Output formats
 const OUTPUT_FORMATS = {
@@ -139,7 +139,7 @@ async function fetchRepositories(format = OUTPUT_FORMATS.ALL) {
 
     // Also save to file
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const filename = `repositories_${format}_${timestamp}.json`;
+    const filename = `output/repositories_${format}_${timestamp}.json`;
     fs.writeFileSync(filename, JSON.stringify(outputData, null, 2));
     console.log(`\n💾 Saved to: ${filename}`);
 

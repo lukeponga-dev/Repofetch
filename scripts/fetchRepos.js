@@ -60,7 +60,8 @@ async function main() {
         created_at: repo.created_at,
         updated_at: repo.updated_at,
         pushed_at: repo.pushed_at,
-        default_branch: repo.default_branch
+        default_branch: repo.default_branch,
+        is_ai_project: true
       }))
     };
     
