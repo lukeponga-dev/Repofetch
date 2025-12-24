@@ -84,47 +84,59 @@ node scripts/get_all_repos.js --json | jq '.repositories[] | select(.size > 1024
 ### JavaScript Integration
 
 ```javascript
-const { exec } = require('child_process');
-const fs = require('fs');
+const { exec } = require("child_process");
+const fs = require("fs");
 
 class RepoFetchClient {
   constructor() {
-    this.scriptPath = './scripts/';
+    this.scriptPath = "./scripts/";
   }
 
   async getAIRepositories() {
     return new Promise((resolve, reject) => {
-      exec(`node ${this.scriptPath}fetchRepos.js --json`, (error, stdout, stderr) => {
-        if (error) reject(error);
-        else resolve(JSON.parse(stdout));
-      });
+      exec(
+        `node ${this.scriptPath}fetchRepos.js --json`,
+        (error, stdout, stderr) => {
+          if (error) reject(error);
+          else resolve(JSON.parse(stdout));
+        }
+      );
     });
   }
 
   async getAllRepositories() {
     return new Promise((resolve, reject) => {
-      exec(`node ${this.scriptPath}get_all_repos.js --json`, (error, stdout, stderr) => {
-        if (error) reject(error);
-        else resolve(JSON.parse(stdout));
-      });
+      exec(
+        `node ${this.scriptPath}get_all_repos.js --json`,
+        (error, stdout, stderr) => {
+          if (error) reject(error);
+          else resolve(JSON.parse(stdout));
+        }
+      );
     });
   }
 
   async getRepositoryAnalytics() {
     return new Promise((resolve, reject) => {
-      exec(`node ${this.scriptPath}repository_analytics.js --json`, (error, stdout, stderr) => {
-        if (error) reject(error);
-        else resolve(JSON.parse(stdout));
-      });
+      exec(
+        `node ${this.scriptPath}repository_analytics.js --json`,
+        (error, stdout, stderr) => {
+          if (error) reject(error);
+          else resolve(JSON.parse(stdout));
+        }
+      );
     });
   }
 
-  async exportRepositories(format = 'all') {
+  async exportRepositories(format = "all") {
     return new Promise((resolve, reject) => {
-      exec(`node ${this.scriptPath}repos_to_json.js ${format}`, (error, stdout, stderr) => {
-        if (error) reject(error);
-        else resolve(JSON.parse(stdout));
-      });
+      exec(
+        `node ${this.scriptPath}repos_to_json.js ${format}`,
+        (error, stdout, stderr) => {
+          if (error) reject(error);
+          else resolve(JSON.parse(stdout));
+        }
+      );
     });
   }
 }
@@ -132,20 +144,19 @@ class RepoFetchClient {
 // Usage example
 async function main() {
   const client = new RepoFetchClient();
-  
+
   try {
     const aiRepos = await client.getAIRepositories();
     console.log(`Found ${aiRepos.total_ai_repositories} AI repositories`);
-    
+
     const analytics = await client.getRepositoryAnalytics();
     console.log(`Total repositories: ${analytics.summary.total_repositories}`);
-    
+
     const allRepos = await client.getAllRepositories();
-    const pythonRepos = allRepos.filter(repo => repo.language === 'Python');
+    const pythonRepos = allRepos.filter((repo) => repo.language === "Python");
     console.log(`Found ${pythonRepos.length} Python repositories`);
-    
   } catch (error) {
-    console.error('Error:', error.message);
+    console.error("Error:", error.message);
   }
 }
 
@@ -162,29 +173,29 @@ from datetime import datetime
 class RepoFetchClient:
     def __init__(self, script_path='./scripts/'):
         self.script_path = script_path
-    
+
     def run_script(self, script_name, args=None):
         cmd = ['node', f'{self.script_path}{script_name}']
         if args:
             cmd.extend(args)
-        
+
         result = subprocess.run(cmd, capture_output=True, text=True)
         if result.returncode != 0:
             raise Exception(f"Script failed: {result.stderr}")
         return result.stdout
-    
+
     def get_ai_repositories(self):
         output = self.run_script('fetchRepos.js', ['--json'])
         return json.loads(output)
-    
+
     def get_all_repositories(self):
         output = self.run_script('get_all_repos.js', ['--json'])
         return json.loads(output)
-    
+
     def get_repository_analytics(self):
         output = self.run_script('repository_analytics.js', ['--json'])
         return json.loads(output)
-    
+
     def export_repositories(self, format_type='all'):
         output = self.run_script('repos_to_json.js', [format_type])
         return json.loads(output)
@@ -192,25 +203,25 @@ class RepoFetchClient:
 # Usage example
 def main():
     client = RepoFetchClient()
-    
+
     try:
         # Get AI repositories
         ai_repos = client.get_ai_repositories()
         print(f"Found {ai_repos['total_ai_repositories']} AI repositories")
-        
+
         # Get analytics
         analytics = client.get_repository_analytics()
         print(f"Total repositories: {analytics['summary']['total_repositories']}")
-        
+
         # Find most popular AI projects
-        popular_ai = sorted(ai_repos['repositories'], 
-                          key=lambda x: x['stargazers_count'], 
+        popular_ai = sorted(ai_repos['repositories'],
+                          key=lambda x: x['stargazers_count'],
                           reverse=True)[:3]
-        
+
         print("Top 3 AI projects:")
         for repo in popular_ai:
             print(f"  {repo['name']}: {repo['stargazers_count']} stars")
-            
+
     except Exception as e:
         print(f"Error: {e}")
 
@@ -236,7 +247,7 @@ run_and_save() {
     local script_name=$1
     local args=$2
     local output_file=$3
-    
+
     echo "Running $script_name..."
     if [ -n "$args" ]; then
         node "$SCRIPT_DIR/$script_name" $args > "$OUTPUT_DIR/${output_file}_${TIMESTAMP}.txt"
@@ -426,22 +437,22 @@ node scripts/get_all_repos.js --json > temp-repos.json
 # Analyze language distribution
 echo "### Language Distribution"
 jq -r '
-.repositories | 
-group_by(.language) | 
+.repositories |
+group_by(.language) |
 map({language: .[0].language, count: length, total_stars: (map(.stargazers_count) | add)}) |
 sort_by(.count) | reverse |
-.[] | 
+.[] |
 "\(.language): \(.count) repos (avg stars: \((.total_stars / .count) | round))"' temp-repos.json
 
 # Find most popular languages by stars
 echo ""
 echo "### Languages by Total Stars"
 jq -r '
-.repositories | 
-group_by(.language) | 
+.repositories |
+group_by(.language) |
 map({language: .[0].language, total_stars: (map(.stargazers_count) | add)}) |
 sort_by(.total_stars) | reverse |
-.[] | 
+.[] |
 "\(.language): \(.total_stars) stars"' temp-repos.json
 
 # Clean up
@@ -463,7 +474,7 @@ node scripts/get_all_repos.js --json > temp-repos.json
 # Calculate repository ages
 echo "### Repository Age Distribution"
 jq -r '
-.repositories | 
+.repositories |
 map(.created_at | fromdateiso8601) |
 map(now - .) |
 map(. / (60 * 60 * 24 * 30)) |  # Convert to months
@@ -480,10 +491,10 @@ Oldest: \(.max | round) months"' temp-repos.json
 echo ""
 echo "### Recently Created (last 6 months)"
 jq -r '
-.repositories | 
+.repositories |
 map(select(.created_at > "2024-06-24")) |
 sort_by(.created_at) | reverse |
-.[] | 
+.[] |
 "\(.full_name) (created: \(.created_at))"' temp-repos.json
 
 # Clean up
@@ -505,17 +516,17 @@ node scripts/get_all_repos.js --json > temp-repos.json
 # Top repositories by stars
 echo "### Top 10 Repositories by Stars"
 jq -r '
-.repositories | 
+.repositories |
 sort_by(.stargazers_count) | reverse |
 .[0:10] |
-.[] | 
+.[] |
 "\(.stargazers_count | tostring | . + " stars") | \(.full_name)"' temp-repos.json
 
 # Star distribution
 echo ""
 echo "### Star Distribution"
 jq -r '
-.repositories | 
+.repositories |
 map(.stargazers_count) |
 {
   "0": map(select(. == 0)) | length,
@@ -525,18 +536,18 @@ map(.stargazers_count) |
   "101-500": map(select(. > 100 and . <= 500)) | length,
   "500+": map(select(. > 500)) | length
 } |
-to_entries | 
-.[] | 
+to_entries |
+.[] |
 "\(.key): \(.value) repos"' temp-repos.json
 
 # Fork analysis
 echo ""
 echo "### Most Forked Repositories"
 jq -r '
-.repositories | 
+.repositories |
 sort_by(.forks_count) | reverse |
 .[0:5] |
-.[] | 
+.[] |
 "\(.forks_count | tostring | . + " forks") | \(.full_name)"' temp-repos.json
 
 # Clean up
@@ -584,21 +595,21 @@ ALL_DATA=$(node scripts/get_all_repos.js --json)
 # Add language statistics
 echo "### Language Distribution" >> "$REPORT_FILE"
 echo "$ALL_DATA" | jq -r '
-.repositories | 
-group_by(.language) | 
+.repositories |
+group_by(.language) |
 map({language: .[0].language, count: length}) |
 sort_by(.count) | reverse |
-.[] | 
+.[] |
 "- \(.language): \(.count) repositories"' >> "$REPORT_FILE"
 
 # Add most popular repositories
 echo "" >> "$REPORT_FILE"
 echo "### Most Popular Repositories" >> "$REPORT_FILE"
 echo "$ALL_DATA" | jq -r '
-.repositories | 
+.repositories |
 sort_by(.stargazers_count) | reverse |
 .[0:10] |
-.[] | 
+.[] |
 "- \(.full_name): \(.stargazers_count) stars"' >> "$REPORT_FILE"
 
 echo "✅ Report generated: $REPORT_FILE"

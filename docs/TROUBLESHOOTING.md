@@ -17,11 +17,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "Invalid private key"
 
 **Symptoms:**
+
 ```
 ❌ Error: Invalid private key
 ```
 
 **Causes:**
+
 - Private key file is corrupted
 - Private key file path is incorrect
 - Private key has wrong permissions
@@ -29,28 +31,31 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Verify the private key file exists:**
+
    ```bash
    # Check if file exists
    ls -la config/fetchreposapp.2025-12-23.private-key.pem
-   
+
    # On Windows
    dir config\fetchreposapp.2025-12-23.private-key.pem
    ```
 
 2. **Check file permissions:**
+
    ```bash
    # Linux/Mac
    chmod 600 config/fetchreposapp.2025-12-23.private-key.pem
-   
+
    # Windows (run as Administrator)
    icacls "config\fetchreposapp.2025-12-23.private-key.pem" /grant:r "%username%:F"
    ```
 
 3. **Verify private key format:**
+
    ```bash
    # Should start with -----BEGIN RSA PRIVATE KEY-----
    head -1 config/fetchreposapp.2025-12-23.private-key.pem
-   
+
    # Should end with -----END RSA PRIVATE KEY-----
    tail -1 config/fetchreposapp.2025-12-23.private-key.pem
    ```
@@ -64,11 +69,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "Incorrect APP_ID or INSTALLATION_ID"
 
 **Symptoms:**
+
 ```
 ❌ Error: Invalid GitHub App configuration
 ```
 
 **Causes:**
+
 - APP_ID doesn't match the GitHub App
 - INSTALLATION_ID is incorrect
 - GitHub App has been deleted or moved to different account
@@ -76,19 +83,21 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Verify APP_ID:**
+
    ```bash
    # Find in script file
    grep -n "appId" scripts/fetchRepos.js
-   
+
    # Compare with GitHub App settings
    # Go to: https://github.com/settings/apps/your-app-name
    ```
 
 2. **Verify INSTALLATION_ID:**
+
    ```bash
    # Find in script file
    grep -n "installationId" scripts/fetchRepos.js
-   
+
    # Get correct installation ID from:
    # https://github.com/settings/apps/your-app-name/installations
    ```
@@ -101,22 +110,26 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "Insufficient permissions"
 
 **Symptoms:**
+
 ```
 ❌ Error: Insufficient permissions for this operation
 ```
 
 **Causes:**
+
 - GitHub App doesn't have repository read permissions
 - GitHub App scope is too restrictive
 
 **Solutions:**
 
 1. **Check GitHub App permissions:**
+
    - Go to https://github.com/settings/apps/your-app-name
    - Click "Permissions & events"
    - Ensure "Repository" permission is set to "Read-only"
 
 2. **Update permissions:**
+
    - Edit the GitHub App settings
    - Add "Contents" and "Metadata" read permissions
    - Save changes
@@ -136,11 +149,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "Cannot connect to GitHub API"
 
 **Symptoms:**
+
 ```
 ❌ Error: getaddrinfo ENOTFOUND api.github.com
 ```
 
 **Causes:**
+
 - Internet connection is down
 - GitHub API is temporarily unavailable
 - Firewall is blocking GitHub API
@@ -148,19 +163,22 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Check internet connection:**
+
    ```bash
    # Test connectivity
    ping api.github.com
-   
+
    # On Windows
    ping github.com
    ```
 
 2. **Check GitHub status:**
+
    - Visit https://www.githubstatus.com/
    - Look for service incidents
 
 3. **Check firewall settings:**
+
    - Ensure firewall allows outbound HTTPS on port 443
    - Whitelist api.github.com if needed
    - Check proxy settings
@@ -175,11 +193,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "Rate limit exceeded"
 
 **Symptoms:**
+
 ```
 ❌ Error: API rate limit exceeded
 ```
 
 **Causes:**
+
 - Too many requests to GitHub API
 - Rate limit window hasn't reset yet
 - Multiple scripts running simultaneously
@@ -187,10 +207,12 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Wait for rate limit reset:**
+
    - GitHub API rate limits reset every hour
    - Wait 60 minutes before trying again
 
 2. **Check rate limit status:**
+
    ```bash
    # Add this to a script to check rate limits
    curl -H "Authorization: token YOUR_TOKEN" \
@@ -198,10 +220,11 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
    ```
 
 3. **Implement rate limiting in your code:**
+
    ```javascript
    // Add delay between script runs
-   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-   
+   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
    async function runWithDelay() {
      await delay(1000); // 1 second delay
      // Run script
@@ -216,11 +239,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "Connection timeout"
 
 **Symptoms:**
+
 ```
 ❌ Error: ETIMEDOUT or Request timeout
 ```
 
 **Causes:**
+
 - Network is slow
 - GitHub API is responding slowly
 - Too many repositories to fetch
@@ -228,11 +253,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Increase timeout:**
+
    - Edit script files
    - Increase request timeout value
    - Default is typically 30 seconds
 
 2. **Improve network:**
+
    - Check internet speed
    - Reduce network congestion
    - Connect closer to network source
@@ -247,11 +274,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "ENOENT: no such file or directory"
 
 **Symptoms:**
+
 ```
 ❌ Error: ENOENT: no such file or directory, open 'config/...'
 ```
 
 **Causes:**
+
 - File or directory doesn't exist
 - Path is incorrect
 - File was deleted
@@ -259,25 +288,28 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Verify file exists:**
+
    ```bash
    # List directory contents
    ls -la config/
-   
+
    # On Windows
    dir config\
    ```
 
 2. **Check file path in script:**
+
    ```bash
    # Look for path references
    grep -n "private-key" scripts/fetchRepos.js
    ```
 
 3. **Create missing directories:**
+
    ```bash
    # Create config directory
    mkdir -p config
-   
+
    # Create output directory
    mkdir -p output
    ```
@@ -285,11 +317,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "EACCES: permission denied"
 
 **Symptoms:**
+
 ```
 ❌ Error: EACCES: permission denied
 ```
 
 **Causes:**
+
 - File doesn't have read permissions
 - Directory doesn't have write permissions
 - Running as wrong user
@@ -297,12 +331,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Fix file permissions:**
+
    ```bash
    # Linux/Mac
    chmod 644 config/*.pem
    chmod 755 config/
    chmod 755 output/
-   
+
    # Windows (run as Administrator)
    icacls "config" /grant:r "%username%:F"
    icacls "output" /grant:r "%username%:F"
@@ -318,11 +353,13 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Error: "ENOSPC: no space left on device"
 
 **Symptoms:**
+
 ```
 ❌ Error: ENOSPC: no space left on device
 ```
 
 **Causes:**
+
 - Disk is full
 - Output files are too large
 - Temporary files aren't being cleaned up
@@ -330,15 +367,17 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Check disk space:**
+
    ```bash
    # Linux/Mac
    df -h
-   
+
    # Windows
    dir C:\
    ```
 
 2. **Clean old output files:**
+
    ```bash
    # Remove files older than 30 days
    find output/ -type f -mtime +30 -delete
@@ -355,10 +394,12 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Issue: "JSON output is truncated"
 
 **Symptoms:**
+
 - JSON file is incomplete
 - jq commands fail with parsing errors
 
 **Causes:**
+
 - Process was interrupted
 - Output was too large for buffer
 - File write was incomplete
@@ -366,19 +407,21 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 **Solutions:**
 
 1. **Verify JSON is valid:**
+
    ```bash
    # Check if JSON is valid
    jq empty output/all_repositories_*.json
-   
+
    # Check file size
    ls -lh output/all_repositories_*.json
    ```
 
 2. **Re-run the script:**
+
    ```bash
    # Delete corrupted file
    rm output/corrupted_file.json
-   
+
    # Run script again
    node scripts/get_all_repos.js --json
    ```
@@ -392,12 +435,14 @@ This guide helps you diagnose and resolve common issues with RepoFetch.
 ### Issue: "No repositories found"
 
 **Symptoms:**
+
 ```
 Total repositories: 0
 No AI repositories found
 ```
 
 **Causes:**
+
 - GitHub App doesn't have access to repositories
 - No repositories match filter criteria
 - GitHub App isn't installed on any repositories
@@ -405,11 +450,13 @@ No AI repositories found
 **Solutions:**
 
 1. **Check GitHub App installation:**
+
    - Go to https://github.com/settings/apps/your-app-name/installations
    - Verify app is installed on repositories
    - Select repositories: "All repositories" or specific ones
 
 2. **Check filter criteria:**
+
    - AI filter looks for 'ai' in repository name (case-insensitive)
    - Example: 'ai-chatbot' ✅, 'machine-learning' ❌
 
@@ -422,10 +469,12 @@ No AI repositories found
 ### Issue: "Mixed emoji output"
 
 **Symptoms:**
+
 - Emoji characters are garbled
 - Output shows strange characters instead of emojis
 
 **Causes:**
+
 - Terminal doesn't support UTF-8 encoding
 - Locale settings are incorrect
 - Output is being piped incorrectly
@@ -433,16 +482,18 @@ No AI repositories found
 **Solutions:**
 
 1. **Set UTF-8 encoding:**
+
    ```bash
    # Linux/Mac
    export LC_ALL=en_US.UTF-8
    export LANG=en_US.UTF-8
-   
+
    # Windows (PowerShell)
    $env:PYTHONIOENCODING = "utf-8"
    ```
 
 2. **Use different terminal:**
+
    - Try a different terminal emulator
    - Update terminal font to support emoji
    - Use Windows Terminal (supports UTF-8 well)
@@ -457,10 +508,12 @@ No AI repositories found
 ### Issue: "Script is running very slowly"
 
 **Symptoms:**
+
 - Script takes >5 minutes to complete
 - System is unresponsive
 
 **Causes:**
+
 - Large number of repositories
 - Network latency
 - Resource constraints
@@ -468,33 +521,37 @@ No AI repositories found
 **Solutions:**
 
 1. **Check system resources:**
+
    ```bash
    # Linux/Mac
    top -n 1 | head -20
-   
+
    # Windows (PowerShell)
    Get-Process | Sort-Object cpu -Descending | Select-Object -First 10
    ```
 
 2. **Implement pagination:**
+
    - Fetch repositories in smaller batches
    - Add pagination to API calls
    - Process data in chunks
 
 3. **Cache results:**
+
    ```bash
    # Save results to file
    node scripts/get_all_repos.js --json > cached-repos.json
-   
+
    # Use cached data instead of fetching again
    jq '.repositories' cached-repos.json
    ```
 
 4. **Run in background:**
+
    ```bash
    # Linux/Mac
    nohup node scripts/get_all_repos.js --json > output.json &
-   
+
    # Windows (PowerShell)
    Start-Process powershell -ArgumentList 'node scripts/get_all_repos.js --json' -WindowStyle Hidden
    ```
@@ -502,11 +559,13 @@ No AI repositories found
 ### Issue: "Memory usage is very high"
 
 **Symptoms:**
+
 - System runs out of memory
 - Node process crashes
 - "FATAL ERROR: CALL_AND_RETRY_LAST" error
 
 **Causes:**
+
 - Processing very large dataset
 - Memory leak in script
 - Insufficient available memory
@@ -514,12 +573,14 @@ No AI repositories found
 **Solutions:**
 
 1. **Increase Node.js heap size:**
+
    ```bash
    # Increase to 2GB
    node --max-old-space-size=2048 scripts/get_all_repos.js --json
    ```
 
 2. **Process data in chunks:**
+
    ```javascript
    // Process repositories one at a time instead of loading all
    for (const repo of repositories) {
@@ -538,12 +599,14 @@ No AI repositories found
 ### Error: "Node.js not found" or "node: command not found"
 
 **Symptoms:**
+
 ```
 command not found: node
 'node' is not recognized as an internal or external command
 ```
 
 **Causes:**
+
 - Node.js is not installed
 - Node.js is not in system PATH
 - Using wrong Node.js installation
@@ -551,11 +614,13 @@ command not found: node
 **Solutions:**
 
 1. **Check if Node.js is installed:**
+
    ```bash
    node --version
    ```
 
 2. **Install Node.js:**
+
    - Visit https://nodejs.org/
    - Download LTS version (14 or higher)
    - Follow installation instructions
@@ -568,11 +633,13 @@ command not found: node
 ### Error: "npm ERR! Cannot find module"
 
 **Symptoms:**
+
 ```
 npm ERR! Cannot find module 'octokit'
 ```
 
 **Causes:**
+
 - Dependencies not installed
 - node_modules directory is missing
 - package.json is corrupted
@@ -580,25 +647,28 @@ npm ERR! Cannot find module 'octokit'
 **Solutions:**
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Verify package.json:**
+
    ```bash
    # Check file contents
    cat package.json
-   
+
    # Should have octokit dependency
    grep octokit package.json
    ```
 
 3. **Clear and reinstall:**
+
    ```bash
    # Remove node_modules
    rm -rf node_modules
    rm package-lock.json
-   
+
    # Reinstall
    npm install
    ```
@@ -611,16 +681,16 @@ Add debug logging to scripts:
 
 ```javascript
 // At top of script file
-const DEBUG = process.env.DEBUG === 'true';
+const DEBUG = process.env.DEBUG === "true";
 
 function debugLog(...args) {
   if (DEBUG) {
-    console.log('[DEBUG]', ...args);
+    console.log("[DEBUG]", ...args);
   }
 }
 
 // Use in code
-debugLog('Starting API request...');
+debugLog("Starting API request...");
 ```
 
 Run with debug enabled:
@@ -645,20 +715,19 @@ const privateKeyPath = "./config/fetchreposapp.2025-12-23.private-key.pem";
 async function testConfig() {
   try {
     console.log("Testing GitHub App configuration...");
-    
+
     const privateKey = fs.readFileSync(privateKeyPath, "utf8");
     console.log("✅ Private key loaded");
-    
+
     const app = new App({ appId, privateKey });
     console.log("✅ App initialized");
-    
+
     const octokit = await app.getInstallationOctokit(installationId);
     console.log("✅ Octokit client created");
-    
+
     const { data } = await octokit.request("GET /app");
     console.log("✅ API connection successful");
     console.log("App name:", data.name);
-    
   } catch (error) {
     console.error("❌ Configuration test failed:", error.message);
     process.exit(1);
@@ -686,7 +755,7 @@ while true; do
   RATE_LIMIT=$(curl -s "https://api.github.com/rate_limit" | jq '.rate_limit')
   echo "Rate limit remaining: $(echo $RATE_LIMIT | jq '.remaining') / $(echo $RATE_LIMIT | jq '.limit')"
   echo "Reset at: $(echo $RATE_LIMIT | jq '.reset | todate')"
-  
+
   sleep 60
 done
 ```
@@ -728,16 +797,19 @@ echo "Error report saved to: $ERROR_LOG"
 If you're still experiencing issues:
 
 1. **Check documentation:**
+
    - Review [SETUP.md](SETUP.md)
    - Check [USAGE.md](USAGE.md)
    - See [API.md](API.md)
 
 2. **Enable debug logging:**
+
    - Add debug statements to scripts
    - Capture complete error messages
    - Check system logs
 
 3. **Test components:**
+
    - Test GitHub App configuration
    - Verify network connectivity
    - Check file permissions

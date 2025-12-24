@@ -25,10 +25,10 @@ node fetchRepos.js [options]
 
 ### Options
 
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--json` | `-j` | Output repositories in JSON format |
-| `--analytics` | `-a` | Generate analytics report for AI repositories |
+| Option        | Short | Description                                   |
+| ------------- | ----- | --------------------------------------------- |
+| `--json`      | `-j`  | Output repositories in JSON format            |
+| `--analytics` | `-a`  | Generate analytics report for AI repositories |
 
 ### Functions
 
@@ -39,6 +39,7 @@ Fetches all repositories and filters for AI-related ones.
 **Returns:** `Promise<Array>` - Array of repository objects
 
 **Example:**
+
 ```javascript
 const repos = await fetchAIRepositories();
 console.log(`Found ${repos.length} AI repositories`);
@@ -49,6 +50,7 @@ console.log(`Found ${repos.length} AI repositories`);
 Displays repositories in the specified format.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 - `format` (string): 'console' or 'json'
 
@@ -57,6 +59,7 @@ Displays repositories in the specified format.
 Generates analytics for AI repositories.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Object with analytics data
@@ -83,10 +86,10 @@ node get_all_repos.js [options]
 
 ### Options
 
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--json` | `-j` | Output repositories in JSON format |
-| `--analytics` | `-a` | Generate quick analytics report |
+| Option        | Short | Description                        |
+| ------------- | ----- | ---------------------------------- |
+| `--json`      | `-j`  | Output repositories in JSON format |
+| `--analytics` | `-a`  | Generate quick analytics report    |
 
 ### Functions
 
@@ -101,6 +104,7 @@ Fetches all repositories accessible to the GitHub App.
 Displays repositories with privacy indicators.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 - `format` (string): 'console' or 'json'
 
@@ -109,6 +113,7 @@ Displays repositories with privacy indicators.
 Generates quick analytics for all repositories.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Object with analytics data
@@ -131,11 +136,11 @@ node repos_to_json.js <format>
 
 ### Formats
 
-| Format | Description |
-|--------|-------------|
-| `all` | Export all repositories |
-| `ai-only` | Export only AI repositories |
-| `both` | Export summary + detailed data |
+| Format    | Description                    |
+| --------- | ------------------------------ |
+| `all`     | Export all repositories        |
+| `ai-only` | Export only AI repositories    |
+| `both`    | Export summary + detailed data |
 
 ### Functions
 
@@ -144,6 +149,7 @@ node repos_to_json.js <format>
 Exports repositories in the specified format.
 
 **Parameters:**
+
 - `format` (string): 'all', 'ai-only', or 'both'
 
 **Returns:** Object with exported data
@@ -153,6 +159,7 @@ Exports repositories in the specified format.
 Generates summary statistics for repositories.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Summary statistics object
@@ -175,9 +182,9 @@ node repository_analytics.js [options]
 
 ### Options
 
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--json` | `-j` | Output analytics in JSON format |
+| Option   | Short | Description                     |
+| -------- | ----- | ------------------------------- |
+| `--json` | `-j`  | Output analytics in JSON format |
 
 ### Functions
 
@@ -186,6 +193,7 @@ node repository_analytics.js [options]
 Generates comprehensive analytics for repositories.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Comprehensive analytics object
@@ -195,6 +203,7 @@ Generates comprehensive analytics for repositories.
 Analyzes programming language distribution.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Language analysis object
@@ -204,6 +213,7 @@ Analyzes programming language distribution.
 Analyzes repository popularity metrics.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Popularity analysis object
@@ -213,6 +223,7 @@ Analyzes repository popularity metrics.
 Analyzes repository age and activity.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Age analysis object
@@ -222,6 +233,7 @@ Analyzes repository age and activity.
 Analyzes repository size distribution.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Size analysis object
@@ -231,6 +243,7 @@ Analyzes repository size distribution.
 Analyzes privacy distribution.
 
 **Parameters:**
+
 - `repositories` (Array): Array of repository objects
 
 **Returns:** Privacy analysis object
@@ -318,11 +331,13 @@ All scripts implement consistent error handling patterns:
 ### Common Error Types
 
 1. **Authentication Errors**
+
    - Invalid private key
    - Incorrect App ID or Installation ID
    - Missing permissions
 
 2. **Network Errors**
+
    - GitHub API connectivity issues
    - Rate limiting
    - Timeout errors
@@ -364,10 +379,10 @@ All scripts depend on:
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `APP_ID` | GitHub App ID | 2501453 |
-| `INSTALLATION_ID` | Installation ID | 100314666 |
+| Variable           | Description         | Default                                            |
+| ------------------ | ------------------- | -------------------------------------------------- |
+| `APP_ID`           | GitHub App ID       | 2501453                                            |
+| `INSTALLATION_ID`  | Installation ID     | 100314666                                          |
 | `PRIVATE_KEY_PATH` | Path to private key | ../config/fetchreposapp.2025-12-23.private-key.pem |
 
 ## Output Files

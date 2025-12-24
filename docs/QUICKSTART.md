@@ -30,14 +30,16 @@ This installs the `octokit` package needed for GitHub API integration.
 ## 3. Configure GitHub App (One-time Setup)
 
 ### Option A: Use Existing Configuration
+
 The project comes pre GitHub App-configured with sample credentials. The scripts are ready to use immediately.
 
 ### Option B: Configure Your Own GitHub App
+
 1. Create a GitHub App in your GitHub account
 2. Generate a private key file
 3. Update the configuration in each script:
    - `APP_ID` / `appId`: Your GitHub App ID
-   - `INSTALLATION_ID` / `installationId`: Your installation ID  
+   - `INSTALLATION_ID` / `installationId`: Your installation ID
    - `PRIVATE_KEY_PATH` / `privateKeyPath`: Path to your private key file
 
 ## 4. Test the Setup
@@ -56,6 +58,7 @@ node repos_to_json.js all
 ## 5. Basic Usage Examples
 
 ### Get Your AI Projects
+
 ```bash
 node fetchRepos.js
 # Output: 🤖 ai-chatbot
@@ -63,17 +66,19 @@ node fetchRepos.js
 ```
 
 ### Get All Repositories with JSON Output
+
 ```bash
 node get_all_repos.js --json
 # Outputs JSON to console and saves to file
 ```
 
 ### Export Detailed JSON Reports
+
 ```bash
 # All repositories
 node repos_to_json.js all
 
-# AI repositories only  
+# AI repositories only
 node repos_to_json.js ai-only
 
 # Summary + detailed data

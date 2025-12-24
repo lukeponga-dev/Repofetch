@@ -57,18 +57,18 @@ Repofetch/
 
 The root directory contains project-level files and configuration:
 
-| File | Purpose |
-|------|---------|
-| `README.md` | Main project documentation and feature overview |
-| `QUICKSTART.md` | Fast setup guide (5 minutes) |
-| `SETUP.md` | Detailed installation and configuration |
-| `USAGE.md` | Comprehensive command reference |
-| `CONTRIBUTING.md` | Guidelines for contributing to the project |
-| `PROJECT_ONBOARDING.md` | New contributor guide and project structure |
-| `TODO.md` | Development roadmap and future features |
-| `package.json` | Project metadata and dependencies |
-| `package-lock.json` | Locked versions for reproducible installs |
-| `.gitignore` | Git ignore patterns |
+| File                    | Purpose                                         |
+| ----------------------- | ----------------------------------------------- |
+| `README.md`             | Main project documentation and feature overview |
+| `QUICKSTART.md`         | Fast setup guide (5 minutes)                    |
+| `SETUP.md`              | Detailed installation and configuration         |
+| `USAGE.md`              | Comprehensive command reference                 |
+| `CONTRIBUTING.md`       | Guidelines for contributing to the project      |
+| `PROJECT_ONBOARDING.md` | New contributor guide and project structure     |
+| `TODO.md`               | Development roadmap and future features         |
+| `package.json`          | Project metadata and dependencies               |
+| `package-lock.json`     | Locked versions for reproducible installs       |
+| `.gitignore`            | Git ignore patterns                             |
 
 ### config/ - Configuration
 
@@ -182,6 +182,7 @@ output/
 ```
 
 **File Naming Convention**: `{type}_{name}_YYYY-MM-DDTHH-MM-SS-sssZ.json`
+
 - Timestamp allows multiple versions without conflicts
 - ISO 8601 format ensures proper sorting
 
@@ -203,6 +204,7 @@ node_modules/
 ### By Purpose
 
 **Documentation Files**
+
 - Root: `README.md`, `QUICKSTART.md`, `SETUP.md`, `USAGE.md`
 - Detailed: `CONTRIBUTING.md`, `PROJECT_ONBOARDING.md`
 - Reference: `docs/API.md`, `docs/EXAMPLES.md`
@@ -210,39 +212,46 @@ node_modules/
 - Navigation: `docs/INDEX.md`
 
 **Configuration Files**
+
 - `package.json` - Project metadata and dependencies
 - `package-lock.json` - Dependency lock file
 - `config/fetchreposapp.2025-12-23.private-key.pem` - GitHub App key
 - `.gitignore` - Version control ignore rules
 
 **Application Code**
+
 - `scripts/fetchRepos.js` - AI project fetcher
 - `scripts/get_all_repos.js` - All repositories fetcher
 - `scripts/repos_to_json.js` - JSON export tool
 - `scripts/repository_analytics.js` - Analytics engine
 
 **Generated Output**
+
 - `output/*.json` - Auto-saved JSON reports
 
 ### By Accessibility
 
 **Public (Always Visible)**
+
 - All `.md` files (documentation)
 - `package.json` (project metadata)
 - `scripts/` directory (application code)
 
 **Private (Git-Ignored)**
+
 - `node_modules/` - Dependencies
 - `config/*.pem` - Private keys
 - Sensitive configuration files
 
 **Output (Generated)**
+
 - `output/*.json` - Generated data files
 - New files created with each script run
 
 ## File Types
 
 ### Markdown (.md)
+
 - `README.md` - Project overview
 - `QUICKSTART.md` - Quick start guide
 - `SETUP.md` - Setup instructions
@@ -254,14 +263,17 @@ node_modules/
 - `docs/TROUBLESHOOTING.md` - Troubleshooting
 
 ### JSON Files (.json)
+
 - `package.json` - Project configuration
 - `package-lock.json` - Dependency lock
 - `output/*.json` - Generated reports
 
 ### JavaScript (.js)
+
 - `scripts/*.js` - Application scripts (Node.js)
 
 ### Private Key (.pem)
+
 - `config/*.pem` - GitHub App private keys (KEEP SECURE!)
 
 ## Usage Paths
@@ -269,6 +281,7 @@ node_modules/
 ### Common File Access Patterns
 
 **Getting Started**
+
 ```
 README.md
   ↓
@@ -278,6 +291,7 @@ scripts/fetchRepos.js
 ```
 
 **Detailed Setup**
+
 ```
 SETUP.md
   ↓
@@ -287,6 +301,7 @@ scripts/ (run any script)
 ```
 
 **Learning Commands**
+
 ```
 USAGE.md
   ↓
@@ -296,6 +311,7 @@ scripts/ (try examples)
 ```
 
 **Troubleshooting**
+
 ```
 docs/TROUBLESHOOTING.md
   ↓
@@ -305,6 +321,7 @@ scripts/ (review code)
 ```
 
 **Integration Development**
+
 ```
 docs/API.md
   ↓
@@ -317,13 +334,13 @@ scripts/ (study code)
 
 ### Approximate Sizes
 
-| Directory | Size | Purpose |
-|-----------|------|---------|
-| `docs/` | ~500 KB | Documentation |
-| `scripts/` | ~50 KB | Application code |
-| `config/` | ~5 KB | Configuration |
-| `node_modules/` | ~100+ MB | Dependencies |
-| `output/` | Variable | Generated data |
+| Directory       | Size     | Purpose          |
+| --------------- | -------- | ---------------- |
+| `docs/`         | ~500 KB  | Documentation    |
+| `scripts/`      | ~50 KB   | Application code |
+| `config/`       | ~5 KB    | Configuration    |
+| `node_modules/` | ~100+ MB | Dependencies     |
+| `output/`       | Variable | Generated data   |
 
 ### Cleanup
 
@@ -344,19 +361,23 @@ npm install  # Reinstall when needed
 ## Naming Conventions
 
 ### Script Files
+
 - Kebab-case: `fetch-repos.js`, `get-all-repos.js`
 - Camel-case for internal functions
 
 ### Output Files
+
 - Format: `{type}_{name}_YYYY-MM-DDTHH-MM-SS-sssZ.json`
 - Example: `all_repositories_2025-12-23T20-27-50-129Z.json`
 - Always include ISO 8601 timestamp
 
 ### Configuration Files
+
 - Versioned keys: `fetchreposapp.2025-12-23.private-key.pem`
 - Includes app name, date, and file type
 
 ### Documentation Files
+
 - Uppercase with underscores: `README.md`, `SETUP.md`
 - Docs folder: lowercase with extension `docs/API.md`
 
@@ -412,17 +433,17 @@ chmod 644 *.json            # JSON files
 
 ## Quick Reference
 
-| Task | Location |
-|------|----------|
-| Get started | [QUICKSTART.md](../QUICKSTART.md) |
-| Learn commands | [USAGE.md](../USAGE.md) |
-| Fix problems | [docs/TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
-| View examples | [docs/EXAMPLES.md](EXAMPLES.md) |
-| API reference | [docs/API.md](API.md) |
-| Install | Run `npm install` |
-| Run scripts | `node scripts/*.js` |
-| Check output | `output/` directory |
-| See config | `config/` directory |
+| Task           | Location                                      |
+| -------------- | --------------------------------------------- |
+| Get started    | [QUICKSTART.md](../QUICKSTART.md)             |
+| Learn commands | [USAGE.md](../USAGE.md)                       |
+| Fix problems   | [docs/TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
+| View examples  | [docs/EXAMPLES.md](EXAMPLES.md)               |
+| API reference  | [docs/API.md](API.md)                         |
+| Install        | Run `npm install`                             |
+| Run scripts    | `node scripts/*.js`                           |
+| Check output   | `output/` directory                           |
+| See config     | `config/` directory                           |
 
 ---
 

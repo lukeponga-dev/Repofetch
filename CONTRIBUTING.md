@@ -28,26 +28,31 @@ By participating in this project, you agree to abide by our Code of Conduct:
 There are many ways to contribute to RepoFetch:
 
 ### 🐛 Report Bugs
+
 - Use the issue tracker to report bugs
 - Include clear steps to reproduce the issue
 - Provide environment details (Node.js version, OS, etc.)
 
 ### 💡 Suggest Features
+
 - Open an issue with the "enhancement" label
 - Describe the feature and its potential benefits
 - Consider implementation complexity
 
 ### 📝 Improve Documentation
+
 - Fix typos, improve clarity, add examples
 - Update guides and references
 - Add missing documentation
 
 ### 🔧 Code Contributions
+
 - Fix bugs or implement features
 - Improve performance or code quality
 - Add new output formats or filters
 
 ### 🧪 Testing
+
 - Add test cases for existing functionality
 - Test on different environments
 - Verify compatibility with different Node.js versions
@@ -55,13 +60,15 @@ There are many ways to contribute to RepoFetch:
 ## Development Setup
 
 ### Prerequisites
-- Node.js 14+ 
+
+- Node.js 14+
 - Git
 - A GitHub account for testing GitHub App integration
 
 ### Setup Process
 
 1. **Fork the Repository**
+
    ```bash
    # Fork on GitHub, then clone your fork
    git clone https://github.com/YOUR_USERNAME/Repofetch.git
@@ -69,21 +76,24 @@ There are many ways to contribute to RepoFetch:
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Create a Test Environment**
+
    ```bash
    # Create a test GitHub App for development
    # Update configuration in scripts as needed
    ```
 
 4. **Verify Setup**
+
    ```bash
    # Test basic functionality
    node fetchRepos.js
-   
+
    # Test JSON output
    node fetchRepos.js --json
    ```
@@ -91,27 +101,31 @@ There are many ways to contribute to RepoFetch:
 ### Development Workflow
 
 1. **Create a Feature Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Make Changes**
+
    - Follow coding standards
    - Write tests for new functionality
    - Update documentation
 
 3. **Test Thoroughly**
+
    ```bash
    # Test all scripts
    node fetchRepos.js
    node get_all_repos.js
    node repos_to_json.js all
-   
+
    # Test error scenarios
    # Test with invalid configurations
    ```
 
 4. **Commit Changes**
+
    ```bash
    git add .
    git commit -m "feat: add new feature description"
@@ -136,15 +150,18 @@ There are many ways to contribute to RepoFetch:
 ### Code Examples
 
 #### Good
+
 ```javascript
 async function fetchAIRepositories() {
   try {
     const privateKey = fs.readFileSync(privateKeyPath, "utf8");
     const app = new App({ appId, privateKey });
     const octokit = await app.getInstallationOctokit(installationId);
-    
+
     const { data } = await octokit.request("GET /installation/repositories");
-    return data.repositories.filter(repo => repo.name.toLowerCase().includes('ai'));
+    return data.repositories.filter((repo) =>
+      repo.name.toLowerCase().includes("ai")
+    );
   } catch (error) {
     console.error("❌ Error fetching repositories:", error.message);
     throw error;
@@ -153,12 +170,15 @@ async function fetchAIRepositories() {
 ```
 
 #### Avoid
+
 ```javascript
 function fetch() {
   const k = fs.readFileSync(p, "utf8");
-  const a = new App({appId, privateKey: k});
-  return a.getInstallationOctokit(i).then(o => {
-    return o.request("GET /installation/repositories").then(r => r.data.repositories);
+  const a = new App({ appId, privateKey: k });
+  return a.getInstallationOctokit(i).then((o) => {
+    return o
+      .request("GET /installation/repositories")
+      .then((r) => r.data.repositories);
   });
 }
 ```
@@ -206,18 +226,21 @@ node repos_to_json.js both
 ### Test Scenarios
 
 1. **Happy Path Tests**
+
    - Normal operation with valid configuration
    - Multiple repositories
    - AI project filtering
    - JSON output generation
 
 2. **Edge Cases**
+
    - No repositories found
    - No AI repositories
    - Private repositories
    - Large numbers of repositories
 
 3. **Error Scenarios**
+
    - Invalid private key
    - Wrong GitHub App ID
    - Missing installation ID
@@ -242,7 +265,7 @@ describe("fetchRepos.js", () => {
   test("should fetch AI repositories", async () => {
     // Test implementation
   });
-  
+
   test("should handle JSON output", async () => {
     // Test JSON generation
   });
@@ -295,9 +318,11 @@ When adding new features:
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Documentation update
@@ -305,12 +330,14 @@ Brief description of changes
 - [ ] Other (describe)
 
 ## Testing
+
 - [ ] Manual testing completed
 - [ ] All scripts tested
 - [ ] Edge cases verified
 - [ ] No breaking changes
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-review completed
 - [ ] Documentation updated
@@ -343,11 +370,13 @@ Use the following template:
 Clear description of the bug
 
 **Environment**
-- Node.js version: 
-- Operating System: 
-- RepoFetch version: 
+
+- Node.js version:
+- Operating System:
+- RepoFetch version:
 
 **Steps to Reproduce**
+
 1. Step one
 2. Step two
 3. See error

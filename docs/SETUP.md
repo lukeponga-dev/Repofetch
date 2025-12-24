@@ -15,15 +15,16 @@ Detailed setup instructions for RepoFetch - AI Projects Repository Fetcher
 ## System Requirements
 
 ### Required Software
+
 - **Node.js** (version 14.0.0 or higher)
   - Download from: https://nodejs.org/
   - Verify installation: `node --version`
-  
 - **npm** (Node Package Manager)
   - Usually comes with Node.js
   - Verify installation: `npm --version`
 
 ### GitHub Requirements
+
 - GitHub account
 - Repository access permissions
 - GitHub App (for authenticated API access)
@@ -59,7 +60,9 @@ npm list octokit
 ## GitHub App Configuration
 
 ### Why Use a GitHub App?
+
 GitHub Apps provide:
+
 - **Better security** than personal access tokens
 - **Granular permissions** control
 - **Higher rate limits** for API requests
@@ -68,10 +71,12 @@ GitHub Apps provide:
 ### Creating a GitHub App
 
 1. **Navigate to GitHub Settings**
+
    - Go to your GitHub profile/settings
    - Click "Developer settings" → "GitHub Apps"
 
 2. **Create New GitHub App**
+
    - Click "New GitHub App"
    - Fill in the required fields:
      - **GitHub App name**: `RepoFetch App` (or your choice)
@@ -79,6 +84,7 @@ GitHub Apps provide:
      - **Homepage URL**: Your project URL (optional)
 
 3. **Set Permissions**
+
    - **Repository permissions**:
      - **Contents**: Read
      - **Metadata**: Read
@@ -86,11 +92,13 @@ GitHub Apps provide:
      - **Pull requests**: Read (optional)
 
 4. **App Permissions**
+
    - Subscribe to events:
      - **Installation**
      - **Installation repositories**
 
 5. **Where can this GitHub App be installed?**
+
    - Select "Any account" or "Only on this account"
 
 6. **Generate Private Key**
@@ -101,9 +109,11 @@ GitHub Apps provide:
 ### Installing the GitHub App
 
 1. **Navigate to your GitHub App**
+
    - Go to the app you just created
 
 2. **Install the App**
+
    - Click "Install App"
    - Choose "All repositories" or "Only select repositories"
    - Click "Install"
@@ -131,8 +141,8 @@ For each script (`fetchRepos.js`, `get_all_repos.js`, `repos_to_json.js`), updat
 
 ```javascript
 // Configuration values
-const APP_ID = YOUR_APP_ID_HERE;           // From GitHub App settings
-const INSTALLATION_ID = YOUR_INSTALL_ID;    // From installation URL
+const APP_ID = YOUR_APP_ID_HERE; // From GitHub App settings
+const INSTALLATION_ID = YOUR_INSTALL_ID; // From installation URL
 const PRIVATE_KEY_PATH = "/path/to/your/private-key.pem";
 ```
 
@@ -159,6 +169,7 @@ app.getInstallationOctokit(YOUR_INSTALLATION_ID)
 ### Current Configuration (Pre-configured)
 
 The project comes with sample configuration:
+
 - **App ID**: `2501453`
 - **Installation ID**: `100314666`
 - **Private Key**: `fetchreposapp.2025-12-19.private-key.pem`
@@ -168,6 +179,7 @@ The project comes with sample configuration:
 To use your own GitHub App, update all three scripts:
 
 **fetchRepos.js:**
+
 ```javascript
 const appId = YOUR_APP_ID;
 const installationId = YOUR_INSTALL_ID;
@@ -175,6 +187,7 @@ const privateKeyPath = "/workspaces/Repofetch/your-private-key.pem";
 ```
 
 **get_all_repos.js:**
+
 ```javascript
 const APP_ID = YOUR_APP_ID;
 const INSTALLATION_ID = YOUR_INSTALL_ID;
@@ -182,6 +195,7 @@ const PRIVATE_KEY_PATH = "/workspaces/Repofetch/your-private-key.pem";
 ```
 
 **repos_to_json.js:**
+
 ```javascript
 const APP_ID = YOUR_APP_ID;
 const INSTALLATION_ID = YOUR_INSTALL_ID;
@@ -198,6 +212,7 @@ node fetchRepos.js
 ```
 
 Expected output:
+
 ```
 --- Your AI Projects ---
 🤖 ai-project-1
@@ -212,6 +227,7 @@ node fetchRepos.js --json
 ```
 
 Expected output:
+
 ```json
 {
   "total_ai_repositories": 2,
@@ -227,6 +243,7 @@ node get_all_repos.js
 ```
 
 Expected output:
+
 ```
 🔄 Fetching all repositories (this may take a moment)...
 ✅ Success! Found 10 repositories.
@@ -249,6 +266,7 @@ node repos_to_json.js all
 #### 1. Authentication Errors
 
 **Error**: `Error: Private key is invalid`
+
 ```bash
 # Check if private key exists and is readable
 ls -la /workspaces/Repofetch/fetchreposapp.2025-12-19.private-key.pem
@@ -258,6 +276,7 @@ chmod 600 /workspaces/Repofetch/fetchreposapp.2025-12-19.private-key.pem
 ```
 
 **Error**: `Error: App not found`
+
 ```bash
 # Verify App ID is correct
 # Check GitHub App settings for the correct App ID
@@ -266,6 +285,7 @@ chmod 600 /workspaces/Repofetch/fetchreposapp.2025-12-19.private-key.pem
 #### 2. Permission Errors
 
 **Error**: `Error: Repository access denied`
+
 - Ensure your GitHub App has repository permissions
 - Check if the app is installed on the correct account
 - Verify the installation ID is correct
@@ -273,12 +293,14 @@ chmod 600 /workspaces/Repofetch/fetchreposapp.2025-12-19.private-key.pem
 #### 3. Network/Rate Limit Issues
 
 **Error**: `Error: API rate limit exceeded`
+
 - GitHub Apps have higher rate limits than unauthenticated requests
 - Consider implementing request throttling for large datasets
 
 #### 4. File System Errors
 
 **Error**: `ENOENT: no such file or directory`
+
 - Ensure you're in the correct directory (`/workspaces/Repofetch`)
 - Check that the private key file exists
 - Verify file paths are correct

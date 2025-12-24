@@ -34,6 +34,7 @@ node fetchRepos.js
 ```
 
 **Output Example**:
+
 ```
 --- Your AI Projects ---
 🤖 ai-chatbot
@@ -53,6 +54,7 @@ node fetchRepos.js -j
 ```
 
 **JSON Output Structure**:
+
 ```json
 {
   "total_ai_repositories": 4,
@@ -92,6 +94,7 @@ node get_all_repos.js
 ```
 
 **Output Example**:
+
 ```
 🔄 Fetching all repositories (this may take a moment)...
 
@@ -134,16 +137,19 @@ node repos_to_json.js both
 #### Format Details
 
 **`all` Format**:
+
 - Complete list of all accessible repositories
 - Full metadata for each repository
 - Ideal for complete inventory
 
 **`ai-only` Format**:
+
 - Filtered list of repositories containing 'ai' in name
 - Same metadata as 'all' format
 - Focused on AI-related projects
 
 **`both` Format**:
+
 - Summary statistics
 - All repositories with AI flag
 - AI repositories in separate section
@@ -173,6 +179,7 @@ All JSON outputs are automatically saved to timestamped files:
 Each repository object includes:
 
 **Basic Information**:
+
 - `id`: Unique GitHub repository ID
 - `name`: Repository name
 - `full_name`: Owner/repo format
@@ -180,17 +187,20 @@ Each repository object includes:
 - `private`: Privacy status (boolean)
 
 **URLs**:
+
 - `html_url`: GitHub web interface URL
 - `clone_url`: HTTPS clone URL
 - `ssh_url`: SSH clone URL
 
 **Statistics**:
+
 - `stargazers_count`: Number of stars
 - `forks_count`: Number of forks
 - `open_issues_count`: Number of open issues
 - `size`: Repository size in KB
 
 **Technical Details**:
+
 - `language`: Primary programming language
 - `default_branch`: Default branch name
 - `created_at`: Creation timestamp
@@ -198,6 +208,7 @@ Each repository object includes:
 - `pushed_at`: Last push timestamp
 
 **AI Detection** (where applicable):
+
 - `is_ai_project`: Boolean flag for AI-related repositories
 
 ## Advanced Usage
@@ -300,12 +311,12 @@ fi
 ### JavaScript Integration
 
 ```javascript
-const { exec } = require('child_process');
-const fs = require('fs');
+const { exec } = require("child_process");
+const fs = require("fs");
 
 async function getAIRepositories() {
   return new Promise((resolve, reject) => {
-    exec('node fetchRepos.js --json', (error, stdout, stderr) => {
+    exec("node fetchRepos.js --json", (error, stdout, stderr) => {
       if (error) reject(error);
       else {
         const data = JSON.parse(stdout);
@@ -316,9 +327,9 @@ async function getAIRepositories() {
 }
 
 // Usage
-getAIRepositories().then(repos => {
+getAIRepositories().then((repos) => {
   console.log(`Found ${repos.length} AI repositories`);
-  repos.forEach(repo => {
+  repos.forEach((repo) => {
     console.log(`${repo.name}: ${repo.stargazers_count} stars`);
   });
 });
@@ -331,7 +342,7 @@ import subprocess
 import json
 
 def get_all_repositories():
-    result = subprocess.run(['node', 'get_all_repos.js', '--json'], 
+    result = subprocess.run(['node', 'get_all_repos.js', '--json'],
                           capture_output=True, text=True)
     data = json.loads(result.stdout)
     return data['repositories']

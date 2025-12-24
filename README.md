@@ -61,6 +61,7 @@ Repofetch/
 ## 🛠️ Available Scripts
 
 ### 1. AI Projects Fetcher (`scripts/fetchRepos.js`)
+
 Fetches repositories containing 'ai' in the name with optional JSON export and analytics.
 
 ```bash
@@ -84,6 +85,7 @@ node scripts/fetchRepos.js --analytics --json
 ```
 
 ### 2. All Repositories Fetcher (`scripts/get_all_repos.js`)
+
 Fetches all accessible repositories with privacy indicators and optional analytics.
 
 ```bash
@@ -107,6 +109,7 @@ node scripts/get_all_repos.js --analytics --json
 ```
 
 ### 3. Advanced JSON Export (`scripts/repos_to_json.js`)
+
 Advanced export with multiple format options.
 
 ```bash
@@ -121,6 +124,7 @@ node scripts/repos_to_json.js both
 ```
 
 ### 4. Repository Analytics (`scripts/repository_analytics.js`)
+
 Comprehensive analytics and insights about your repositories.
 
 ```bash
@@ -136,6 +140,7 @@ node scripts/repository_analytics.js -j
 ## 📊 Example Output
 
 ### Standard AI Projects Output
+
 ```
 --- Your AI Projects ---
 🤖 ai-chatbot
@@ -145,6 +150,7 @@ node scripts/repository_analytics.js -j
 ```
 
 ### JSON Output Structure
+
 ```json
 {
   "total_ai_repositories": 4,
@@ -178,35 +184,41 @@ node scripts/repository_analytics.js -j
 The analytics engine provides comprehensive insights across multiple dimensions:
 
 ### Summary Statistics
+
 - Total repositories, AI projects, and regular projects
 - Aggregate stars, forks, and open issues
 - Average metrics per repository
 - Top repositories by popularity metrics
 
 ### Language Analysis
+
 - Repository count by programming language
 - Total and average stars per language
 - Size distribution across languages
 - Most popular and most starred languages
 
 ### Popularity Metrics
+
 - Top 10 repositories by stars and forks
 - Popularity distribution buckets (0, 1-10, 11-50, 51-100, 101-500, 500+ stars)
 - Comparative analysis across all repositories
 
 ### Age & Activity Analysis
+
 - Repository age distribution
 - Recent activity tracking (updates within 30 days, pushes within 7 days)
 - Activity percentage and inactive repository identification
 - Timeline-based insights
 
 ### Size & Privacy Analysis
+
 - Storage size analysis and distribution
 - Public vs private repository breakdown
 - Largest repositories by size
 - Privacy distribution statistics
 
 ### Example Analytics Output
+
 ```bash
 node scripts/repository_analytics.js
 ```
@@ -260,6 +272,7 @@ Private: 80 (47%)
 - **`octokit`** (^5.0.5) - GitHub API client for JavaScript
 
 Install dependencies:
+
 ```bash
 npm install
 ```
@@ -267,6 +280,7 @@ npm install
 ## 🔐 GitHub App Configuration
 
 The project comes pre-configured with sample GitHub App credentials:
+
 - **App ID**: `2501453`
 - **Installation ID**: `100314666`
 - **Private Key**: `config/fetchreposapp.2025-12-23.private-key.pem`
@@ -276,12 +290,14 @@ For setting up your own GitHub App, see the detailed guide in **[docs/SETUP.md](
 ## 💡 Common Use Cases
 
 ### Project Portfolio Management
+
 ```bash
 # Generate portfolio overview
 node scripts/repos_to_json.js both > portfolio-report.json
 ```
 
 ### AI Project Discovery
+
 ```bash
 # Find all AI projects
 node scripts/fetchRepos.js
@@ -291,12 +307,14 @@ node scripts/repos_to_json.js ai-only > ai-projects.json
 ```
 
 ### Repository Audit
+
 ```bash
 # Comprehensive repository audit
 node scripts/get_all_repos.js --json > full-inventory.json
 ```
 
 ### Repository Analytics & Insights
+
 ```bash
 # Generate comprehensive analytics report
 node scripts/repository_analytics.js
@@ -309,6 +327,7 @@ node scripts/repository_analytics.js --json | jq '.summary.total_stars'
 ```
 
 ### CI/CD Integration
+
 ```bash
 # Check repository status in build scripts
 if node scripts/fetchRepos.js --json | jq -e '.repositories[] | select(.open_issues_count > 50)' > /dev/null; then
@@ -319,6 +338,7 @@ fi
 ## 🔄 Auto-saved Files
 
 All JSON outputs are automatically saved to timestamped files in the `output/` directory:
+
 - `ai_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/fetchRepos.js --json)
 - `ai_repositories_analytics_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/fetchRepos.js --analytics)
 - `all_repositories_YYYY-MM-DDTHH-MM-SS-sssZ.json` (from scripts/get_all_repos.js --json)
@@ -331,6 +351,7 @@ All JSON outputs are automatically saved to timestamped files in the `output/` d
 ## 🛠️ Advanced Usage
 
 ### Pipeline Integration
+
 ```bash
 # Fetch and process AI repositories
 node scripts/fetchRepos.js --json | jq '.repositories[] | select(.stargazers_count > 10) | .name'
@@ -340,6 +361,7 @@ node scripts/repos_to_json.js all | jq '.repositories | group_by(.language) | ma
 ```
 
 ### Automated Reporting
+
 ```bash
 #!/bin/bash
 echo "=== Daily Repository Report ==="
@@ -359,16 +381,19 @@ For more advanced examples and integrations, see **[USAGE.md](USAGE.md)**.
 ## 🐛 Troubleshooting
 
 ### Authentication Issues
+
 - Check that your private key file exists in the `config/` directory and is readable
 - Verify your GitHub App ID and installation ID
 - Ensure your GitHub App has repository access permissions
 
 ### No AI Projects Found
+
 - Verify you have repositories with 'ai' in the name
 - Check that the repositories are accessible to your GitHub App
 - Consider case sensitivity in filtering
 
 ### API Rate Limits
+
 - GitHub Apps provide higher rate limits than unauthenticated requests
 - Consider implementing request throttling for large datasets
 

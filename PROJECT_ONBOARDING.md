@@ -7,18 +7,23 @@ This is **RepoFetch**, a Node.js application for fetching and managing GitHub re
 ## Quick Navigation
 
 ### For New Users
+
 👉 **[Start Here: QUICKSTART.md](QUICKSTART.md)** - Get up and running in 5 minutes
 
 ### For Detailed Setup
+
 📖 **[SETUP.md](SETUP.md)** - Complete installation and configuration guide
 
 ### For Usage Examples
+
 📖 **[USAGE.md](USAGE.md)** - Comprehensive usage reference
 
 ### For Contributing
+
 🤝 **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contribution guidelines
 
 ### For Project Overview
+
 🛠️ **[README.md](README.md)** - Main project documentation
 
 ## Key Features
@@ -32,7 +37,7 @@ This is **RepoFetch**, a Node.js application for fetching and managing GitHub re
 ## Available Scripts
 
 1. **fetchRepos.js** - AI-focused repository fetcher
-2. **get_all_repos.js** - Complete repository inventory  
+2. **get_all_repos.js** - Complete repository inventory
 3. **repos_to_json.js** - Advanced JSON export with multiple formats
 
 ## Project Structure
@@ -67,7 +72,7 @@ This is **RepoFetch**, a Node.js application for fetching and managing GitHub re
 **Welcome to RepoFetch!** Choose your starting point based on your needs:
 
 - **First time user?** → [QUICKSTART.md](QUICKSTART.md)
-- **Need detailed setup?** → [SETUP.md](SETUP.md)  
+- **Need detailed setup?** → [SETUP.md](SETUP.md)
 - **Want to learn usage?** → [USAGE.md](USAGE.md)
 - **Want to contribute?** → [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Want overview?** → [README.md](README.md)
