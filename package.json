@@ -12,9 +12,13 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,json,md}": [
+    "*.js": [
       "prettier --write",
       "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
       "git add"
     ]
   },
