@@ -1,5 +1,31 @@
 {
+  "name": "repofetch",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./scripts/fetchRepos.js",
+    "build": "echo \"No build step configured\"",
+    "clean": "rimraf output/ dist/ coverage/ || true",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write \"**/*.{js,json,md}\"",
+    "test": "echo \"No tests configured\" && exit 0",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "dependencies": {
     "octokit": "^5.0.5"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.0",
+    "prettier": "^2.8.0",
+    "eslint": "^8.0.0",
+    "rimraf": "^5.0.0"
   }
 }
