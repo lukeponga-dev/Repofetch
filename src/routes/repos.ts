@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { Octokit } from "@octokit/rest";
 import { createAppAuth } from "@octokit/auth-app";
-import metadata from "../../data/metadata.json";
+import fs from "fs";
+import path from "path";
 
 const router = Router();
 
@@ -15,8 +16,8 @@ async function getAuthenticatedOctokit(installationId: number) {
     },
   });
 
-  const auth = await appOctokit.auth({ type: "installation", installationId });
-  return new Octokit({ auth: auth.token });
+  const { token } = await appOctokit.auth({ type: "installation", installationId }) as { token: string };
+  return new Octokit({ auth: token });
 }
 
 function applyFilters(items: any[], q?: string, tag?: string, language?: string) {
@@ -65,6 +66,14 @@ router.get("/repos", async (req, res) => {
 
     const reposData = await octokit.apps.listReposAccessibleToInstallation({ per_page: 100 });
     const repos = reposData.data.repositories || [];
+
+    const metadataPath = path.join(__dirname, '../../data/metadata.json');
+    let metadata;
+    try {
+      metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+    } catch (e) {
+      metadata = {};
+    }
 
     const merged = repos.map((repo: any) => {
       const meta = metadata[repo.full_name] || { tags: [], priority: 0, highlighted: false, notes: null };
