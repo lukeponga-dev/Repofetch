@@ -1,0 +1,8 @@
+{
+  "owner/repo-name": {
+    "tags": ["example", "template"],
+    "priority": 1,
+    "highlighted": false,
+    "notes": "Add repo-specific notes here. Use full_name as the key (owner/repo)."
+  }
+}
